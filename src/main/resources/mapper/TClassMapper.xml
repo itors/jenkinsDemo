@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bynk.dao.TClassMapper" >
+  <resultMap id="BaseResultMap" type="com.bynk.pojo.TClass" >
+    <id column="c_id" property="cId" jdbcType="INTEGER" />
+    <result column="grade_id" property="gradeId" jdbcType="VARCHAR" />
+    <result column="major" property="major" jdbcType="VARCHAR" />
+    <result column="class_name" property="className" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    c_id, grade_id, major, class_name
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_class
+    where c_id = #{cId,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_class
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_class
+    where c_id = #{cId,jdbcType=INTEGER}
+  </delete>
+  <delete id="batchDel" parameterType="java.lang.String" >
+    delete from ${tb}
+    where ${tId} in 
+	<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">  
+	    #{item}  
+    </foreach> 
+  </delete>
+  <insert id="insert" parameterType="com.bynk.pojo.TClass" >
+    insert into t_class (c_id, grade_id, major, 
+      class_name)
+    values (#{cId,jdbcType=INTEGER}, #{gradeId,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, 
+      #{className,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bynk.pojo.TClass" >
+    insert into t_class
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        c_id,
+      </if>
+      <if test="gradeId != null" >
+        grade_id,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="className != null" >
+        class_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cId != null" >
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="gradeId != null" >
+        #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        #{className,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bynk.pojo.TClass" >
+    update t_class
+    <set >
+      <if test="gradeId != null" >
+        grade_id = #{gradeId,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major = #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="className != null" >
+        class_name = #{className,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bynk.pojo.TClass" >
+    update t_class
+    set grade_id = #{gradeId,jdbcType=VARCHAR},
+      major = #{major,jdbcType=VARCHAR},
+      class_name = #{className,jdbcType=VARCHAR}
+    where c_id = #{cId,jdbcType=INTEGER}
+  </update>
+</mapper>

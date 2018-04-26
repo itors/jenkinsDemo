@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bynk.dao.AdministratorMapper" >
+  <resultMap id="BaseResultMap" type="com.bynk.pojo.Administrator" >
+    <id column="a_id" property="aId" jdbcType="INTEGER" />
+    <result column="a_name" property="aName" jdbcType="VARCHAR" />
+    <result column="a_sex" property="aSex" jdbcType="VARCHAR" />
+    <result column="a_birth" property="aBirth" jdbcType="VARCHAR" />
+    <result column="a_tel" property="aTel" jdbcType="VARCHAR" />
+    <result column="creat_time" property="creatTime" jdbcType="VARCHAR" />
+    <result column="is_del" property="isDel" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    a_id, a_name, a_sex, a_birth, a_tel, creat_time, is_del
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_administrator
+    where a_id = #{aId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_administrator
+    where a_id = #{aId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.bynk.pojo.Administrator" >
+    insert into t_administrator (a_id, a_name, a_sex, 
+      a_birth, a_tel, creat_time, 
+      is_del)
+    values (#{aId,jdbcType=INTEGER}, #{aName,jdbcType=VARCHAR}, #{aSex,jdbcType=VARCHAR}, 
+      #{aBirth,jdbcType=VARCHAR}, #{aTel,jdbcType=VARCHAR}, #{creatTime,jdbcType=VARCHAR}, 
+      #{isDel,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.bynk.pojo.Administrator" >
+    insert into t_administrator
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aId != null" >
+        a_id,
+      </if>
+      <if test="aName != null" >
+        a_name,
+      </if>
+      <if test="aSex != null" >
+        a_sex,
+      </if>
+      <if test="aBirth != null" >
+        a_birth,
+      </if>
+      <if test="aTel != null" >
+        a_tel,
+      </if>
+      <if test="creatTime != null" >
+        creat_time,
+      </if>
+      <if test="isDel != null" >
+        is_del,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aId != null" >
+        #{aId,jdbcType=INTEGER},
+      </if>
+      <if test="aName != null" >
+        #{aName,jdbcType=VARCHAR},
+      </if>
+      <if test="aSex != null" >
+        #{aSex,jdbcType=VARCHAR},
+      </if>
+      <if test="aBirth != null" >
+        #{aBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="aTel != null" >
+        #{aTel,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        #{creatTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        #{isDel,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.bynk.pojo.Administrator" >
+    update t_administrator
+    <set >
+      <if test="aName != null" >
+        a_name = #{aName,jdbcType=VARCHAR},
+      </if>
+      <if test="aSex != null" >
+        a_sex = #{aSex,jdbcType=VARCHAR},
+      </if>
+      <if test="aBirth != null" >
+        a_birth = #{aBirth,jdbcType=VARCHAR},
+      </if>
+      <if test="aTel != null" >
+        a_tel = #{aTel,jdbcType=VARCHAR},
+      </if>
+      <if test="creatTime != null" >
+        creat_time = #{creatTime,jdbcType=VARCHAR},
+      </if>
+      <if test="isDel != null" >
+        is_del = #{isDel,jdbcType=INTEGER},
+      </if>
+    </set>
+    where a_id = #{aId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.bynk.pojo.Administrator" >
+    update t_administrator
+    set a_name = #{aName,jdbcType=VARCHAR},
+      a_sex = #{aSex,jdbcType=VARCHAR},
+      a_birth = #{aBirth,jdbcType=VARCHAR},
+      a_tel = #{aTel,jdbcType=VARCHAR},
+      creat_time = #{creatTime,jdbcType=VARCHAR},
+      is_del = #{isDel,jdbcType=INTEGER}
+    where a_id = #{aId,jdbcType=INTEGER}
+  </update>
+</mapper>
